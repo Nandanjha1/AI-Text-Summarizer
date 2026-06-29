@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>AI Text Summarizer</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤖 AI Text Summarizer</h1>
+    <p>
+        Paste your text below and get an AI-generated summary in
+        exactly 3 bullet points.
+    </p>
+
+    <form action="/summarize"
+          method="POST">
+        <label for="mode"><strong>Summary Mode</strong></label>
+
+        <select name="mode" id="mode">
+            <option value="concise">Concise</option>
+            <option value="detailed">Detailed</option>
+            <option value="technical">Technical</option>
+            <option value="executive">Executive</option>
+        </select>
+        <br><br>
+
+        <textarea
+            id="text"
+            name="text"
+            rows="12"
+            placeholder="Paste your paragraph here..."
+            oninput="updateCount()">{{ original if original else '' }}</textarea>
+
+        <div class="counter">
+            <span id="characters">Characters : 0</span>
+            <span id="words">Words : 0</span>
+        </div>
+
+        <button id="submitBtn" type="submit">
+            Summarize
+        </button>
+
+        <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Generating AI Summary...</p>
+        </div>
+    </form>
+
+    <form action="/download" method="POST">
+        <input
+            type="hidden"
+            name="summary"
+            value="{{ summary }}"
+        >
+        <button type="submit">
+            Download Markdown
+        </button>
+    </form>
+
+    {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+    {% if summary %}
+
+    <div class="result">
+        <h2>Summary</h2>
+        <pre id="summary">{{ summary }}</pre>
+        <button onclick="copySummary()">
+            Copy Summary
+        </button>
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
