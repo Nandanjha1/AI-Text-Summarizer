@@ -66,7 +66,7 @@ AI-Text-Summarizer/
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/AI-Text-Summarizer.git
+git clone https://github.com/Nandanjha1/AI-Text-Summarizer.git
 ```
 
 ```bash
